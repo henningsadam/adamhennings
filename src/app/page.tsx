@@ -41,7 +41,7 @@ export default function Home() {
         </h2>
         <div className="relative border-l border-zinc-200 pl-8 dark:border-zinc-800">
           {career.map(({ name, url, logo, note, roles }) => (
-            <div key={name} className="relative mb-10 last:mb-0">
+            <div key={name} className="group relative mb-10 last:mb-0">
               <span className="absolute -left-[calc(2rem+0.25rem)] top-1.5 h-2 w-2 rounded-full bg-zinc-300 dark:bg-zinc-600" />
               <div className="flex items-center gap-3">
                 {logo && (
@@ -50,7 +50,7 @@ export default function Home() {
                     alt={`${name} logo`}
                     width={24}
                     height={24}
-                    className="rounded"
+                    className="rounded grayscale transition-[filter] duration-300 group-hover:grayscale-0"
                   />
                 )}
                 {url ? (
