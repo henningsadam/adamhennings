@@ -229,8 +229,6 @@ export const career: Company[] = [
       "B2B Product Strategy",
       "Process Optimization",
     ],
-    technologies: [{ name: ".NET" }, { name: "SQL Server" }, { name: "Azure" }],
-    clients: [{ name: "Placeholder Client A" }, { name: "Placeholder Client B" }],
     roles: [
       {
         title: "Product Manager",
@@ -253,7 +251,6 @@ export const career: Company[] = [
       "Account Growth",
       "Team Leadership",
     ],
-    technologies: [{ name: "Salesforce" }, { name: "Qualys" }],
     clients: [{ name: "First Data" }, { name: "North American Bancard" }],
     roles: [
       {

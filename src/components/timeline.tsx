@@ -2,12 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import {
-  FiChevronDown,
-  FiExternalLink,
-  FiBox,
-} from "react-icons/fi";
+import { FiChevronDown, FiExternalLink } from "react-icons/fi";
 import { LuBuilding2 } from "react-icons/lu";
+import { TechIcon } from "@/components/tech-icon";
 import type { Company } from "@/data/career";
 
 function formatPeriod(startDate: string, endDate: string | null) {
@@ -95,7 +92,7 @@ function DetailPanel({ company }: { company: Company }) {
                 key={tech.name}
                 className="flex items-center gap-1.5 rounded bg-zinc-100 px-2.5 py-1 dark:bg-zinc-800"
               >
-                <FiBox className="text-zinc-400" size={14} />
+                <TechIcon name={tech.name} size={14} />
                 <span className="text-xs text-zinc-600 dark:text-zinc-400">
                   {tech.name}
                 </span>
