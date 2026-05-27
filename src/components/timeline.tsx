@@ -24,18 +24,18 @@ function DetailPanel({ company }: { company: Company }) {
 
   return (
     <div className="space-y-5 pt-4 pb-2">
-      {(industry || type) && (
+      {((industry && industry.length > 0) || (type && type.length > 0)) && (
         <div className="flex flex-wrap gap-2">
-          {industry && (
-            <span className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-              {industry}
+          {industry?.map((ind) => (
+            <span key={ind} className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+              {ind}
             </span>
-          )}
-          {type && (
-            <span className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-              {type}
+          ))}
+          {type?.map((t) => (
+            <span key={t} className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+              {t}
             </span>
-          )}
+          ))}
         </div>
       )}
 
@@ -113,7 +113,17 @@ function DetailPanel({ company }: { company: Company }) {
                 key={client.name}
                 className="flex items-center gap-1.5 rounded bg-zinc-100 px-2.5 py-1 dark:bg-zinc-800"
               >
-                <LuBuilding2 className="text-zinc-400" size={14} />
+                {client.logo ? (
+                  <Image
+                    src={client.logo}
+                    alt={client.name}
+                    width={14}
+                    height={14}
+                    className="object-contain"
+                  />
+                ) : (
+                  <LuBuilding2 className="text-zinc-400" size={14} />
+                )}
                 <span className="text-xs text-zinc-600 dark:text-zinc-400">
                   {client.name}
                 </span>

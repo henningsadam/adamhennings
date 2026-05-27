@@ -10,6 +10,7 @@ export type Technology = {
 
 export type Client = {
   name: string;
+  logo?: string;
 };
 
 export type Company = {
@@ -20,8 +21,8 @@ export type Company = {
   location?: string;
   note?: string;
   roles: Role[];
-  industry?: string;
-  type?: string;
+  industry?: string[];
+  type?: string[];
   overview?: string;
   skills?: string[];
   technologies?: Technology[];
@@ -34,8 +35,8 @@ export const career: Company[] = [
     url: "https://www.volio.ai",
     logo: "/logos/volio.png",
     fullLogo: "/logos/volio-full.webp",
-    industry: "Professional Development",
-    type: "Consumer AI",
+    industry: ["Professional Development"],
+    type: ["Consumer AI"],
     overview:
       "AI-powered career journal that helps professionals capture work accomplishments via voice notes, automatically extracting skills and generating polished narratives for performance reviews, resume updates, and compensation discussions.",
     skills: [
@@ -72,8 +73,8 @@ export const career: Company[] = [
     url: "https://www.leapevent.tech",
     logo: "/logos/leap.png",
     fullLogo: "/logos/leap-full.webp",
-    industry: "Event Ticketing",
-    type: "B2B/Marketplace",
+    industry: ["Event Ticketing"],
+    type: ["B2B", "Marketplace"],
     overview:
       "Event technology platform powering registration, attendee engagement, and data analytics for large-scale conferences and trade shows.",
     skills: [
@@ -89,7 +90,10 @@ export const career: Company[] = [
       { name: "AWS Glue" },
       { name: "Tableau" },
     ],
-    clients: [{ name: "Fanatics" }, { name: "NBA" }],
+    clients: [
+      { name: "Fanatics", logo: "/logos/clients/fanatics.png" },
+      { name: "NBA", logo: "/logos/clients/nba.png" },
+    ],
     roles: [
       {
         title: "Product Manager, Data Platform",
@@ -104,8 +108,8 @@ export const career: Company[] = [
     logo: "/logos/claravine.png",
     fullLogo: "/logos/claravine-full.svg",
     location: "Salt Lake City Metropolitan Area",
-    industry: "MarTech",
-    type: "Enterprise SaaS",
+    industry: ["Data Governance", "MarTech"],
+    type: ["Enterprise SaaS"],
     overview:
       "Data standards and metadata management platform enabling enterprise marketing teams to classify, connect, and govern campaign data across channels.",
     skills: [
@@ -121,11 +125,11 @@ export const career: Company[] = [
       { name: "Jira Product Discovery" },
     ],
     clients: [
-      { name: "HBO Max" },
-      { name: "Peacock" },
-      { name: "Warner Bros Discovery" },
-      { name: "Grainger" },
-      { name: "WPP" },
+      { name: "HBO Max", logo: "/logos/clients/hbomax.ico" },
+      { name: "Peacock", logo: "/logos/clients/peacock.ico" },
+      { name: "Warner Bros Discovery", logo: "/logos/clients/warnerbros.png" },
+      { name: "Grainger", logo: "/logos/clients/grainger.png" },
+      { name: "WPP", logo: "/logos/clients/wpp.png" },
     ],
     roles: [
       {
@@ -146,8 +150,8 @@ export const career: Company[] = [
     logo: "/logos/hirevue.png",
     fullLogo: "/logos/hirevue-full.png",
     location: "Salt Lake City Metropolitan Area",
-    industry: "Talent Acquisition",
-    type: "Enterprise SaaS",
+    industry: ["Talent Acquisition"],
+    type: ["Enterprise SaaS"],
     overview:
       "Video interviewing and AI-driven talent assessment platform used by global enterprises to streamline hiring through structured interviews and predictive analytics.",
     skills: [
@@ -166,9 +170,10 @@ export const career: Company[] = [
       { name: "Segment" },
     ],
     clients: [
-      { name: "Delta" },
-      { name: "JP Morgan" },
-      { name: "Bank of America" },
+      { name: "Delta", logo: "/logos/clients/delta.png" },
+      { name: "JP Morgan", logo: "/logos/clients/jpmorgan.png" },
+      { name: "Bank of America", logo: "/logos/clients/bankofamerica.png" },
+      { name: "Nike", logo: "/logos/clients/nike.ico" },
     ],
     roles: [
       {
@@ -188,8 +193,8 @@ export const career: Company[] = [
     logo: "/logos/jamberry-mark.png",
     fullLogo: "/logos/jamberry-full.png",
     location: "Salt Lake City Metropolitan Area",
-    industry: "Direct Sales / Beauty",
-    type: "D2C Ecommerce",
+    industry: ["Direct Sales", "Beauty"],
+    type: ["Ecommerce", "SaaS", "Marketplace"],
     overview:
       "Direct-to-consumer beauty brand and marketplace platform enabling independent consultants to sell nail wraps and beauty products through personalized storefronts.",
     skills: [
@@ -219,8 +224,8 @@ export const career: Company[] = [
     name: "Sysnet Global Solutions",
     logo: "/logos/sysnet.jpg",
     fullLogo: "/logos/sysnet-full.png",
-    industry: "Cybersecurity & Compliance",
-    type: "Enterprise SaaS",
+    industry: ["Cybersecurity & Compliance"],
+    type: ["Enterprise SaaS"],
     overview:
       "Global provider of PCI DSS compliance validation and cybersecurity solutions, helping merchants and acquiring banks manage payment security obligations.",
     skills: [
@@ -241,8 +246,8 @@ export const career: Company[] = [
     name: "Panoptic Security",
     note: "Acquired by Sysnet Global Solutions",
     location: "Salt Lake City Metropolitan Area",
-    industry: "Cybersecurity & Compliance",
-    type: "Managed Services",
+    industry: ["Cybersecurity & Compliance"],
+    type: ["Managed Services"],
     overview:
       "Boutique security firm specializing in PCI compliance assessments and managed security services for mid-market merchants. Acquired by Sysnet Global Solutions.",
     skills: [
@@ -269,8 +274,8 @@ export const career: Company[] = [
     name: "Aster Capital",
     logo: "/logos/aster.jpg",
     fullLogo: "/logos/aster-full.png",
-    industry: "Venture Capital",
-    type: "Financial Services",
+    industry: ["Venture Capital"],
+    type: ["Financial Services"],
     overview:
       "Early-stage venture capital firm focused on technology investments, providing strategic support and capital to emerging startups.",
     skills: [
