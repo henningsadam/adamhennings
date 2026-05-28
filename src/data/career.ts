@@ -18,6 +18,7 @@ export type Company = {
   url?: string;
   logo?: string;
   fullLogo?: string;
+  monoLogo?: boolean;
   location?: string;
   note?: string;
   roles: Role[];
@@ -33,8 +34,8 @@ export const career: Company[] = [
   {
     name: "Volio",
     url: "https://www.volio.ai",
-    logo: "/logos/volio.png",
-    fullLogo: "/logos/volio-full.webp",
+    logo: "/logos/volio.svg",
+    fullLogo: "/logos/volio-full.svg",
     industry: ["Professional Development"],
     type: ["Consumer AI"],
     overview:
@@ -71,8 +72,9 @@ export const career: Company[] = [
   {
     name: "Leap Event Technology",
     url: "https://www.leapevent.tech",
-    logo: "/logos/leap.png",
-    fullLogo: "/logos/leap-full.webp",
+    logo: "/logos/leap.svg",
+    fullLogo: "/logos/leap-full.svg",
+    monoLogo: true,
     industry: ["Event Ticketing"],
     type: ["B2B", "Marketplace"],
     overview:
@@ -147,8 +149,8 @@ export const career: Company[] = [
   {
     name: "HireVue",
     url: "https://www.hirevue.com",
-    logo: "/logos/hirevue.png",
-    fullLogo: "/logos/hirevue-full.png",
+    logo: "/logos/hirevue.svg",
+    fullLogo: "/logos/hirevue-full.svg",
     location: "Salt Lake City Metropolitan Area",
     industry: ["Talent Acquisition"],
     type: ["Enterprise SaaS"],
@@ -222,7 +224,7 @@ export const career: Company[] = [
   },
   {
     name: "Sysnet Global Solutions",
-    logo: "/logos/sysnet.jpg",
+    logo: "/logos/sysnet.png",
     fullLogo: "/logos/sysnet-full.png",
     industry: ["Cybersecurity & Compliance"],
     type: ["Enterprise SaaS"],
@@ -272,7 +274,7 @@ export const career: Company[] = [
   },
   {
     name: "Aster Capital",
-    logo: "/logos/aster.jpg",
+    logo: "/logos/aster.png",
     fullLogo: "/logos/aster-full.png",
     industry: ["Venture Capital"],
     type: ["Financial Services"],

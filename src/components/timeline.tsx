@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { FiChevronDown, FiExternalLink } from "react-icons/fi";
+import { FiExternalLink } from "react-icons/fi";
 import { LuBuilding2 } from "react-icons/lu";
 import { TechIcon } from "@/components/tech-icon";
 import type { Company } from "@/data/career";
@@ -146,7 +146,7 @@ export function Timeline({ career }: { career: Company[] }) {
   return (
     <div className="relative border-l border-zinc-200 pl-8 dark:border-zinc-800">
       {career.map((company) => {
-        const { name, url, logo, fullLogo, note, roles } = company;
+        const { name, url, logo, fullLogo, monoLogo, note, roles } = company;
         const isOpen = expanded === name;
         const heroLogo = fullLogo ?? logo;
 
@@ -164,17 +164,17 @@ export function Timeline({ career }: { career: Company[] }) {
                   <Image
                     src={logo}
                     alt={`${name} logo`}
-                    width={24}
+                    width={48}
                     height={24}
-                    className="rounded grayscale transition-[filter] duration-300 group-hover:grayscale-0"
+                    className={`h-6 w-auto object-contain transition-[filter] duration-300 ${monoLogo ? "brightness-75 group-hover:brightness-100" : "grayscale group-hover:grayscale-0"}`}
                   />
                 )}
                 <span className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
                   {name}
                 </span>
               </div>
-              {heroLogo && (
-                <div className={`absolute inset-y-0 left-0 flex items-center gap-3 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+              <div className={`absolute inset-y-0 left-0 flex items-center gap-3 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                {heroLogo ? (
                   <Image
                     src={heroLogo}
                     alt={`${name} logo`}
@@ -182,26 +182,26 @@ export function Timeline({ career }: { career: Company[] }) {
                     height={40}
                     className="h-8 w-auto object-contain"
                   />
-                  {url && (
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="group/link flex items-center gap-1.5 text-zinc-400 transition-colors hover:text-zinc-600 dark:hover:text-zinc-300"
-                    >
-                      <FiExternalLink size={14} />
-                      <span className="max-w-0 overflow-hidden whitespace-nowrap text-xs transition-[max-width] duration-300 ease-in-out group-hover/link:max-w-24">
-                        Visit Website
-                      </span>
-                    </a>
-                  )}
-                </div>
-              )}
-              <FiChevronDown
-                size={16}
-                className={`shrink-0 text-zinc-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-              />
+                ) : (
+                  <span className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                    {name}
+                  </span>
+                )}
+                {url && (
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="group/link flex items-center gap-1.5 text-zinc-400 transition-colors hover:text-zinc-600 dark:hover:text-zinc-300"
+                  >
+                    <FiExternalLink size={14} />
+                    <span className="max-w-0 overflow-hidden whitespace-nowrap text-xs transition-[max-width] duration-300 ease-in-out group-hover/link:max-w-24">
+                      Visit Website
+                    </span>
+                  </a>
+                )}
+              </div>
             </button>
 
             {note && (
