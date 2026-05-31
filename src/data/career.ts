@@ -132,6 +132,8 @@ export const career: Company[] = [
       { name: "Warner Bros Discovery", logo: "/logos/clients/warnerbros.png" },
       { name: "Grainger", logo: "/logos/clients/grainger.png" },
       { name: "WPP", logo: "/logos/clients/wpp.png" },
+      { name: "Under Armour", logo: "/logos/clients/underarmour.png" },
+      { name: "GSK", logo: "/logos/clients/gsk.png" },
     ],
     roles: [
       {
