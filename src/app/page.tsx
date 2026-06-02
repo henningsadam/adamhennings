@@ -1,6 +1,10 @@
 import { FaLinkedinIn, FaYoutube, FaGithub } from "react-icons/fa6";
 import { career } from "@/data/career";
 import { Timeline } from "@/components/timeline";
+import { ContributionGraph } from "@/components/contribution-graph";
+import { fetchContributions } from "@/lib/github";
+
+const PRIOR_YEARS = [2025, 2024];
 
 const socials = [
   { href: "https://www.linkedin.com/in/henningsadam", icon: FaLinkedinIn, label: "LinkedIn" },
@@ -8,7 +12,25 @@ const socials = [
   { href: "https://www.github.com/henningsadam", icon: FaGithub, label: "GitHub" },
 ];
 
-export default function Home() {
+async function ContributionGraphLoader() {
+  const username = "henningsadam"
+  const [rolling, ...yearData] = await Promise.all([
+    fetchContributions(username),
+    ...PRIOR_YEARS.map((year) => fetchContributions(username, year)),
+  ])
+  const byYear = Object.fromEntries(
+    PRIOR_YEARS.map((year, i) => [year, yearData[i]])
+  )
+  return (
+    <ContributionGraph
+      rolling={rolling}
+      byYear={byYear}
+      username={username}
+    />
+  )
+}
+
+export default async function Home() {
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-col items-center justify-center gap-6 py-24">
@@ -30,6 +52,10 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      <section className="w-full max-w-4xl px-6 pb-24">
+        <ContributionGraphLoader />
+      </section>
 
       <section className="w-full max-w-xl px-6 pb-24">
         <h2 className="mb-10 text-sm font-medium uppercase tracking-widest text-zinc-400">
