@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useMemo, useRef, useState } from "react"
 import type { ContributionDay, Week } from "@/lib/github"
 
 const BLOCK_SIZE = 11
@@ -25,9 +25,11 @@ function formatTooltip(day: ContributionDay): string {
   return `${count} ${plural} on ${month} ${dayNum}, ${year}`
 }
 
-function totalContributions(weeks: Week[]): number {
-  return weeks.flat().reduce((sum, day) => sum + (day?.count ?? 0), 0)
-}
+const DAY_LABELS = [
+  { label: "Mon", y: HEADER_HEIGHT + 1 * CELL_SIZE + BLOCK_SIZE / 2 },
+  { label: "Wed", y: HEADER_HEIGHT + 3 * CELL_SIZE + BLOCK_SIZE / 2 },
+  { label: "Fri", y: HEADER_HEIGHT + 5 * CELL_SIZE + BLOCK_SIZE / 2 },
+]
 
 export function ContributionGraph({
   rolling,
@@ -43,7 +45,6 @@ export function ContributionGraph({
     .sort((a, b) => b - a)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
   const weeks = selectedYear ? byYear[selectedYear] : rolling
-  const total = totalContributions(weeks)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const [tooltip, setTooltip] = useState<{
@@ -51,6 +52,29 @@ export function ContributionGraph({
     x: number
     y: number
   } | null>(null)
+
+  const total = useMemo(
+    () => weeks.flat().reduce((sum, day) => sum + (day?.count ?? 0), 0),
+    [weeks]
+  )
+
+  const { width, monthLabels } = useMemo(() => {
+    const w = LABEL_WIDTH + weeks.length * CELL_SIZE
+    const labels: { label: string; x: number }[] = []
+    let lastMonth = -1
+    weeks.forEach((week, weekIndex) => {
+      const day = week.find((d) => d !== null)
+      if (!day) return
+      const month = new Date(day.date + "T12:00:00Z").getUTCMonth()
+      if (month !== lastMonth) {
+        labels.push({ label: MONTHS[month], x: LABEL_WIDTH + weekIndex * CELL_SIZE })
+        lastMonth = month
+      }
+    })
+    return { width: w, monthLabels: labels }
+  }, [weeks])
+
+  const height = HEADER_HEIGHT + 7 * CELL_SIZE
 
   function handlePointerEnter(
     e: React.PointerEvent,
@@ -66,31 +90,6 @@ export function ContributionGraph({
       y: rect.top - containerRect.top,
     })
   }
-
-  const width = LABEL_WIDTH + weeks.length * CELL_SIZE
-  const height = HEADER_HEIGHT + 7 * CELL_SIZE
-
-  const monthLabels: { label: string; x: number }[] = []
-  let lastMonth = -1
-
-  weeks.forEach((week, weekIndex) => {
-    const day = week.find((d) => d !== null)
-    if (!day) return
-    const month = new Date(day.date + "T12:00:00Z").getUTCMonth()
-    if (month !== lastMonth) {
-      monthLabels.push({
-        label: MONTHS[month],
-        x: LABEL_WIDTH + weekIndex * CELL_SIZE,
-      })
-      lastMonth = month
-    }
-  })
-
-  const dayLabels = [
-    { label: "Mon", y: HEADER_HEIGHT + 1 * CELL_SIZE + BLOCK_SIZE / 2 },
-    { label: "Wed", y: HEADER_HEIGHT + 3 * CELL_SIZE + BLOCK_SIZE / 2 },
-    { label: "Fri", y: HEADER_HEIGHT + 5 * CELL_SIZE + BLOCK_SIZE / 2 },
-  ]
 
   return (
     <div>
@@ -138,7 +137,7 @@ export function ContributionGraph({
             </text>
           ))}
 
-          {dayLabels.map(({ label, y }) => (
+          {DAY_LABELS.map(({ label, y }) => (
             <text
               key={label}
               x={0}

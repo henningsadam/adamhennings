@@ -4,19 +4,20 @@ import { Timeline } from "@/components/timeline";
 import { ContributionGraph } from "@/components/contribution-graph";
 import { fetchContributions } from "@/lib/github";
 
-const PRIOR_YEARS = [2025, 2024];
+const GITHUB_USERNAME = "henningsadam";
+const CURRENT_YEAR = new Date().getFullYear();
+const PRIOR_YEARS = [CURRENT_YEAR - 1, CURRENT_YEAR - 2];
 
 const socials = [
   { href: "https://www.linkedin.com/in/henningsadam", icon: FaLinkedinIn, label: "LinkedIn" },
   { href: "https://www.youtube.com/@henningsadam", icon: FaYoutube, label: "YouTube" },
-  { href: "https://www.github.com/henningsadam", icon: FaGithub, label: "GitHub" },
+  { href: `https://www.github.com/${GITHUB_USERNAME}`, icon: FaGithub, label: "GitHub" },
 ];
 
 async function ContributionGraphLoader() {
-  const username = "henningsadam"
   const [rolling, ...yearData] = await Promise.all([
-    fetchContributions(username),
-    ...PRIOR_YEARS.map((year) => fetchContributions(username, year)),
+    fetchContributions(GITHUB_USERNAME),
+    ...PRIOR_YEARS.map((year) => fetchContributions(GITHUB_USERNAME, year)),
   ])
   const byYear = Object.fromEntries(
     PRIOR_YEARS.map((year, i) => [year, yearData[i]])
@@ -25,7 +26,7 @@ async function ContributionGraphLoader() {
     <ContributionGraph
       rolling={rolling}
       byYear={byYear}
-      username={username}
+      username={GITHUB_USERNAME}
     />
   )
 }
