@@ -67,7 +67,7 @@ export const career: Company[] = [
       { name: "Anthropic" },
       { name: "OpenAI" },
     ],
-    roles: [{ title: "Founder", startDate: "Apr 2024", endDate: null }],
+    roles: [{ title: "Founder", startDate: "Sep 2023", endDate: null }],
   },
   {
     name: "Leap Event Technology",
