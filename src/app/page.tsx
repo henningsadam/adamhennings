@@ -5,8 +5,11 @@ import { ContributionGraph } from "@/components/contribution-graph";
 import { fetchContributions } from "@/lib/github";
 
 const GITHUB_USERNAME = "henningsadam";
-const CURRENT_YEAR = new Date().getFullYear();
-const PRIOR_YEARS = [CURRENT_YEAR - 1, CURRENT_YEAR - 2];
+
+// Re-render at most hourly so the graph advances to the current day instead of
+// being frozen at build time (the route has no request-time APIs, so it would
+// otherwise be statically prerendered once).
+export const revalidate = 3600;
 
 const socials = [
   { href: "https://www.linkedin.com/in/henningsadam", icon: FaLinkedinIn, label: "LinkedIn" },
@@ -15,6 +18,11 @@ const socials = [
 ];
 
 async function ContributionGraphLoader() {
+  // Read "now" per render so the year tabs track the current year across
+  // revalidations rather than being frozen at module load.
+  const currentYear = new Date().getFullYear();
+  const PRIOR_YEARS = [currentYear - 1, currentYear - 2];
+
   const [rolling, ...yearData] = await Promise.all([
     fetchContributions(GITHUB_USERNAME),
     ...PRIOR_YEARS.map((year) => fetchContributions(GITHUB_USERNAME, year)),
